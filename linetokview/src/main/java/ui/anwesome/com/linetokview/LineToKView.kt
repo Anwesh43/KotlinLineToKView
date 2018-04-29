@@ -98,7 +98,7 @@ class LineToKView(ctx : Context) : View(ctx) {
             canvas.drawLine(0f, -size * state.scales[0], 0f, size, paint)
             for (i in 0..1) {
                 canvas.save()
-                canvas.rotate(45f * (1 - 2 * i))
+                canvas.rotate(45f * (1 - 2 * i) * state.scales[1])
                 canvas.drawLine(0f, 0f, 0f, -size * (1 - 2 * i), paint)
                 canvas.restore()
             }
