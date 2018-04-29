@@ -110,4 +110,27 @@ class LineToKView(ctx : Context) : View(ctx) {
             state.startUpdating(startcb)
         }
     }
+
+    data class Renderer (var view : LineToKView) {
+
+        private val animator : Animator = Animator(view)
+
+        private val lineToK : LineToK = LineToK(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            lineToK.draw(canvas, paint)
+            animator.animate {
+                lineToK.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            lineToK.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
