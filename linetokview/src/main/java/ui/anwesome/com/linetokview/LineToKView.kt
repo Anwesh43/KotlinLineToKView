@@ -80,4 +80,34 @@ class LineToKView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    data class LineToK (var i : Int, val state : State = State()) {
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            val w : Float = canvas.width.toFloat()
+            val h : Float = canvas.height.toFloat()
+            val size : Float = Math.min(w, h)/ 3 * state.scales[0]
+            paint.strokeWidth = size/21
+            paint.strokeCap = Paint.Cap.ROUND
+            paint.color = Color.parseColor("#27ae60")
+            canvas.save()
+            canvas.translate(w/2, h/2)
+            canvas.drawLine(0f, -size * state.scales[0], 0f, size, paint)
+            for (i in 0..1) {
+                canvas.save()
+                canvas.rotate(45f * (1 - 2 * i))
+                canvas.drawLine(0f, 0f, 0f, -size * (1 - 2 * i), paint)
+                canvas.restore()
+            }
+            canvas.restore()
+        }
+
+        fun update(stopcb : (Float) -> Unit) {
+            state.update(stopcb)
+        }
+
+        fun startUpdating(startcb : () -> Unit) {
+            state.startUpdating(startcb)
+        }
+    }
 }
