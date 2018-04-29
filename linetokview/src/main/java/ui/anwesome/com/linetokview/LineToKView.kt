@@ -4,6 +4,7 @@ package ui.anwesome.com.linetokview
  * Created by anweshmishra on 29/04/18.
  */
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.*
 import android.view.View
@@ -133,6 +134,14 @@ class LineToKView(ctx : Context) : View(ctx) {
             lineToK.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : LineToKView {
+            val view : LineToKView = LineToKView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
